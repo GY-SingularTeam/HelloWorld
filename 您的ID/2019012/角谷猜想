@@ -1,0 +1,21 @@
+#include<stdio.h>
+int main()
+{
+	int a,y;
+	scanf("%d",&a); 
+	y=a;
+	while(a!=1)
+	{
+		if(a%2==0)
+		{
+			printf("%d/2=%d\n",y,a/=2);
+			y=a;
+		}
+		else
+		{
+			printf("%d*3+1=%d\n",y,a=3*a+1); 
+			y=a;
+		}
+	}
+	return 0;
+}
