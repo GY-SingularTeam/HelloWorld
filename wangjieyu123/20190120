@@ -1,0 +1,221 @@
+报时助手
+#include<stdio.h>
+int main()
+{
+	int n,m;
+	scanf("%d%d",&n,&m);
+	if(n<=20)
+	{
+		switch(n)
+		{
+			case 0:printf("zero ");break;
+			case 1:printf("one ");break;
+			case 2:printf("two ");break;
+			case 3:printf("three ");break;
+			case 4:printf("four ");break;
+			case 5:printf("five ");break;
+			case 6:printf("six ");break;
+			case 7:printf("seven ");break;
+			case 8:printf("eight ");break;
+			case 9:printf("nine ");break;
+			case 10:printf("ten ");break;
+			case 11:printf("eleven ");break;
+			case 12:printf("twelve ");break;
+			case 13:printf("thirteen ");break;
+			case 14:printf("fourteen ");break;
+			case 15:printf("fifteen ");break;
+			case 16:printf("sixteen ");break;
+			case 17:printf("seventeen ");break;
+			case 18:printf("eighteen ");break;
+			case 19:printf("nineteen ");break;
+			case 20:printf("twenty ");break;
+		}
+		if(m==0)
+		{
+			printf("o'clock\n");
+		}
+		else if(m<=20)
+		{
+			switch(m)
+		{
+				case 1:printf("one ");break;
+			case 2:printf("two ");break;
+			case 3:printf("three ");break;
+			case 4:printf("four ");break;
+			case 5:printf("five ");break;
+			case 6:printf("six ");break;
+			case 7:printf("seven ");break;
+			case 8:printf("eight ");break;
+			case 9:printf("nine ");break;
+			case 10:printf("ten ");break;
+			case 11:printf("eleven ");break;
+			case 12:printf("twelve ");break;
+			case 13:printf("thirteen ");break;
+			case 14:printf("fourteen ");break;
+			case 15:printf("fifteen ");break;
+			case 16:printf("sixteen ");break;
+			case 17:printf("seventeen ");break;
+			case 18:printf("eighteen ");break;
+			case 19:printf("nineteen ");break;
+			case 20:printf("twenty ");break;
+		}
+		}
+		else if(m>20)
+		{
+			switch(m/10)
+			{
+				case 2:printf("twenty ");break;
+				case 3:printf("thirty ");break;
+				case 4:printf("forty ");break;
+				case 5:printf("fifty ");break;
+			}
+			switch(m%10)
+			{
+			case 0:printf("zero ");break;
+			case 1:printf("one ");break;
+			case 2:printf("two ");break;
+			case 3:printf("three ");break;
+			case 4:printf("four ");break;
+			case 5:printf("five ");break;
+			case 6:printf("six ");break;
+			case 7:printf("seven ");break;
+			case 8:printf("eight ");break;
+			case 9:printf("nine ");break;
+			}
+		}
+	}
+	else if(n>20)
+	{
+		printf("twenty ");
+		switch(n%10)
+		{
+			case 1:printf("one ");break;
+			case 2:printf("two ");break;
+			case 3:printf("three ");break;
+		}
+		if(m==0)
+		{
+			printf("o'clock\n");
+		}
+		else if(m<=20)
+		{
+			switch(m)
+			{
+				case 1:printf("one ");break;
+			case 2:printf("two ");break;
+			case 3:printf("three ");break;
+			case 4:printf("four ");break;
+			case 5:printf("five ");break;
+			case 6:printf("six ");break;
+			case 7:printf("seven ");break;
+			case 8:printf("eight ");break;
+			case 9:printf("nine ");break;
+			case 10:printf("ten ");break;
+			case 11:printf("eleven ");break;
+			case 12:printf("twelve ");break;
+			case 13:printf("thirteen ");break;
+			case 14:printf("fourteen ");break;
+			case 15:printf("fifteen ");break;
+			case 16:printf("sixteen ");break;
+			case 17:printf("seventeen ");break;
+			case 18:printf("eighteen ");break;
+			case 19:printf("nineteen ");break;
+			case 20:printf("twenty ");break;
+			}
+		}
+		else if(m>20)
+		{
+			switch(m/10)
+			{
+				case 2:printf("twenty ");break;
+				case 3:printf("thirty ");break;
+				case 4:printf("forty ");break;
+				case 5:printf("fifty ");break;
+			}
+			switch(m%10)
+			{
+			case 0:printf("zero ");break;
+			case 1:printf("one ");break; 
+			case 2:printf("two ");break;
+			case 3:printf("three ");break;
+			case 4:printf("four ");break;
+			case 5:printf("five ");break;
+			case 6:printf("six ");break;
+			case 7:printf("seven ");break;
+			case 8:printf("eight ");break;
+			case 9:printf("nine ");break;
+			}
+		}
+	}
+	
+}
+时间转换
+#include<stdio.h>
+int main()
+{
+	int n,a[4]={0},l=0;
+	scanf("%d",&n);
+	while(n)
+	{
+		a[l++]=n%60;
+		n/=60;
+	 }
+	 if(l==0)
+	 {
+	 	printf("0:0:0");
+	 }
+	else if(l==1)
+	 {
+	 	printf("0:0:%d",a[l-1]);
+	  } 
+	 else if(l==2)
+	  {
+	  	printf("0:%d:%d",a[l-1],a[l-2]);
+	  }
+	 else if(l==3)
+	  {
+	  	printf("%d:%d:%d",a[l-1],a[l-2],a[l-3]);
+	  }
+	  return 0;
+}
+龟兔赛跑预测
+#include<stdio.h>
+int main()
+{
+	int v1,v2,t,s,l,t1=0,sum1=0,sum2=0,s1=1;
+	scanf("%d%d%d%d%d",&v1,&v2,&t,&s,&l);
+	while(1)
+	{
+		if(sum1-sum2<t)
+		{
+			t1++;
+			s1=1;
+			sum1+=s1*v1;
+			sum2+=s1*v2;
+		}
+		else
+		{
+			t1+=s;
+			sum2+=s*v2;
+		}
+		if(sum1>=l||sum2>=l)
+		{
+			if(sum1==l&&sum2==l)
+			{
+				printf("D\n");
+			}
+			else if(sum1>sum2)
+			{
+				printf("R\n");
+			 } 
+			 else if(sum1<sum2)
+			 {
+			 	printf("T\n");
+			 	
+			 }
+			 printf("%d",t1);
+			 break;
+		}
+	}
+	return 0;
+ } 
