@@ -1,0 +1,26 @@
+#include"stdio.h"
+int main(){
+	int zongl,i,j,ges,danl[1000],sum=0,k=0,p;
+	scanf("%d %d\n",&zongl,&ges);
+	for(i=0;i<ges;i++){	
+	scanf("%d",&danl[i]);
+  }
+ 
+  for(i=0;i<ges;i++){
+  	for(j=i;j<ges;j++){
+  		if(danl[i]>danl[j]){
+  			p=danl[i];
+  			danl[i]=danl[j];
+  			danl[j]=p;
+		  }
+	  }
+	  sum=sum+danl[i];
+	  if(sum<=zongl){
+	  	k++;
+	  }else{
+	  	break;
+	  }
+  }
+  printf("%d",k);
+	return 0;
+}
