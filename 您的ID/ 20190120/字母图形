@@ -1,0 +1,22 @@
+#include<stdio.h>
+int main()
+{
+	int a,b;
+	int c,z=0;
+	scanf("%d %d",&a,&b);
+	for(int i=0;i<a;i++)
+	{
+		c=65+z;
+		for(int j=0;j<b;j++)
+		{
+			printf("%c",c);
+			if(j<z)
+				c-=1;
+			else
+				c++;
+		}
+		printf("\n"); 
+		z++;
+		
+	}
+}
