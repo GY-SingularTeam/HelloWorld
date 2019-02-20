@@ -1,0 +1,56 @@
+#include<iostream>
+#include<algorithm>
+#define INF 99999;
+using namespace std;
+int x[10001],bestx[10001];
+int n;
+int f1,f2,bestf;
+typedef struct shuxing{
+	int x;//第一台机器加工所需时间。 
+	int y;//第二台机器加工所需时间。
+}SX;
+SX t[10001];
+void dfs(int i)
+{
+	if(i>n)
+	{
+			for(int j=1;j<=n;j++)
+			{
+				bestx[j]=x[j];
+			}
+			bestf=f2;
+			return ;
+	}
+	else
+	for(int j=i;j<=n;j++)
+	{
+		f1+=t[x[j]].x;
+		int zj=f2;
+		f2=max(f1,f2)+t[x[j]].y;
+		if(f2<bestf)
+		{
+			swap(x[i],x[j]);
+			dfs(i+1);
+			swap(x[i],x[j]);
+		}
+		f1-=t[x[j]].x;
+		f2=zj;
+	}
+}
+int main()
+{
+	cin>>n;
+	for(int i=1;i<=n;i++)
+	{
+		cin>>t[i].x>>t[i].y;
+		x[i]=i;
+	}
+	bestf=INF;
+	dfs(1);
+	cout<<bestf<<endl;
+	for(int i=1;i<=n;i++)
+	{
+		cout<<bestx[i]<<" ";
+	}
+	return 0; 
+ } 
