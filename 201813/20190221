@@ -1,0 +1,45 @@
+#include<stdio.h>
+struct  {
+	int t1,t2;
+}p[100]; 
+int n,mt=0xffff,s1=0,s2=0,a[100],b[100];
+int f(int i){
+	if(i>=n){
+		if(s2<=mt){
+//			for(int j = 0 ;j<n ;j++)
+//				printf("%d  ",a[j]+1);
+//				printf("%d\n",s2);
+			mt=s2;
+			for(int j=0;j<n;j++)
+			b[j]=a[j];
+		}
+	}
+	
+	else{
+		for(int j=i;j<n;j++){
+		s1+=p[a[j]].t1;
+		int r=s2;
+		s2=(s1>s2 ? s1:s2)+p[a[j]].t2;
+		int t=a[j];
+		a[j]=a[i];
+		a[i]=t;
+		f(i+1);
+		t=a[j];
+		a[j]=a[i];
+		a[i]=t;
+		s1-=p[a[j]].t1;
+		s2=r;
+		}
+	}
+}
+int main(){
+	scanf("%d",&n);
+	for(int i=0;i<n;i++){
+		a[i]=i;
+		scanf("%d%d",&p[i].t1,&p[i].t2);
+	}
+	f(0);
+	printf("%d\n",mt);
+	for(int i=0;i<n;i++)
+	printf("%d   ",b[i]+1); 
+}
