@@ -1,0 +1,67 @@
+import java.util.Scanner;
+public class a20190221 {
+	static int max = 100;
+	static int n, bestf, f1, f2;
+	static int[] x = new int[max];
+	static int[] bestx = new int[max];
+	static int[][] T = new int[max][2];
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		n = sc.nextInt();
+		for (int i = 1; i <= n; i++) {
+			T[i][0] = sc.nextInt();
+			T[i][1] = sc.nextInt();
+			x[i] = i;
+		}
+		bestf = Integer.MAX_VALUE;
+		backTrack(1);
+
+		for (int i = 1; i <= n; i++) {
+			System.out.print(bestx[i] + " ");
+		}
+		System.out.println();
+
+		System.out.println(bestf);
+		sc.close();
+	}
+
+	private static void backTrack(int t) {
+		if (t > n) {
+			for (int i = 1; i <= n; i++) {
+				bestx[i] = x[i];
+			}
+			bestf = f2;
+			return;
+		}
+
+		for (int i = t; i <= n; i++) {
+
+			f1 += T[x[i]][0];
+			int temp1 = f2;
+			int temp2 = 0;
+			f2 = max(f1, f2) + T[x[i]][1];
+			if (f2 < bestf) {
+				jh(i, t);
+
+				backTrack(t + 1);
+
+				jh(i, t);
+			}
+			f1 -= T[x[i]][0];
+			f2 = temp1;
+		}
+
+	}
+
+	private static int max(int i, int j) {
+		return i > j ? i : j;
+	}
+
+	private static void jh(int i, int j) {
+		int t;
+		t = x[i];
+		x[i] = x[j];
+		x[j] = t;
+	}
+}
