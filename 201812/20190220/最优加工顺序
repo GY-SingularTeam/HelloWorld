@@ -1,0 +1,64 @@
+import java.util.Scanner;
+
+public class Main {
+	public static int[] s;
+	public static int[] e;
+	public static int[] bool;
+	public static int[] a;
+	public static int result = Integer.MAX_VALUE;
+	public static int count;
+	public static int wait;
+
+	public static void main(String[] args) {
+		Scanner sr = new Scanner(System.in);
+		int n = sr.nextInt();
+		s = new int[n];
+		e = new int[n];
+		bool = new int[n];
+		a = new int[n];
+		for (int i = 0; i < n; i++) {
+			s[i] = sr.nextInt();
+			e[i] = sr.nextInt();
+		}
+		sr.close();
+		dfs(0);
+		for (int i = 0; i < n; i++)
+			result += e[i];
+		System.out.println(result);
+		for (int i = 0; i < a.length; i++)
+			System.out.print(a[i] + " ");
+	}
+
+	private static void dfs(int t) {
+		if (t >= s.length) {
+			if (count < result) {
+				result = count;
+				for (int i = 0; i < bool.length; i++)
+					a[bool[i] - 1] = i + 1;
+			}
+			return;
+		}
+		for (int i = 0; i < s.length; i++) {
+			if (bool[i] == 0) {
+				bool[i] = t + 1;
+				if (s[i] > wait) {
+					int tmp = wait;
+					count += s[i] - wait;
+					wait = e[i];
+					dfs(t + 1);
+					wait = tmp;
+					count -= s[i] - wait;
+
+				} else {
+					wait = wait - s[i] + e[i];
+					dfs(t + 1);
+					wait = wait + s[i] - e[i];
+
+				}
+				bool[i] = 0;
+			}
+		}
+
+	}
+
+}
