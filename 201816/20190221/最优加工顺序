@@ -1,0 +1,44 @@
+#include<stdio.h>
+int a[100][2],b[100],c[100],n,sum=0;
+int fun(int s,int k,int y){
+  if(k==n){
+  s+=y; 
+  if(sum==0||sum>=s){sum=s;
+  for(int x=0;x<n;x++)
+  c[x]=b[x];
+  }
+}
+  else if(sum==0||sum>=s){
+	 int r;
+     for(int j=0;j<n;j++)
+     {
+	 if(b[j]==0){
+	 b[j]=k+1;
+	 if(y-a[j][0]<=0)r=0;
+	 else r=y-a[j][0];
+	 fun(s+a[j][0],k+1,r+a[j][1]);
+	 b[j]=0;
+	}
+   }
+  }
+}
+int main()
+{
+   scanf("%d",&n);
+   for(int i=0;i<n;i++)
+   scanf("%d%d",&a[i][0],&a[i][1]);
+   for(int i=0;i<n;i++)
+   {
+   b[i]=1;
+   fun(a[i][0],1,a[i][1]); 
+   b[i]=0;
+   }
+   printf("%d\n",sum);
+   for(int i=1;i<=n;i++)
+   for(int j=0;j<n;j++)
+   if(c[j]==i){
+   printf("%d ",j+1);
+   break; 
+   } 
+   return 0;
+} 
