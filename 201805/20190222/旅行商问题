@@ -1,0 +1,57 @@
+#include<iostream>
+#include<algorithm>
+using namespace std;
+int graph[10001][10001];
+int x[10001],bestx[10001];
+int bestaway=99999,cw;
+int n,m,x1,x2,x3;
+void dfs(int i)
+{
+	if(i>n)
+	{
+		if(graph[x[n]][1]&&cw+graph[x[n]][1]<bestaway)
+		{
+			bestaway=cw+graph[x[n]][1];
+			for(int j=1;j<=n;j++)
+			{
+				bestx[j]=x[j];
+			}
+		}
+	}
+	else
+	for(int j=i;j<=n;j++)
+	{
+		if(graph[x[i-1]][j]&&cw+graph[x[i-1]][j]<bestaway)
+		{
+			swap(x[i],x[j]); 
+			cw+=graph[x[i-1]][i];
+			dfs(i+1);
+			cw-=graph[x[i-1]][i];
+			swap(x[i],x[j]);
+		}
+
+	}
+}
+int main()
+{
+	cin>>n>>m;
+	for(int i=1;i<=n;i++)
+	{
+		x[i]=i;
+	}
+	for(int i=1;i<=m;i++)
+	{
+		cin>>x1>>x2>>x3;
+		graph[x1][x2]=x3;
+		graph[x2][x1]=x3;
+	}
+	dfs(2);
+	for(int i=1;i<=n;i++)
+	{
+		cout<<bestx[i]<<" ";
+	}
+	cout<<"1";
+	cout<<endl;
+	cout<<bestaway;
+	return 0;
+ } 
