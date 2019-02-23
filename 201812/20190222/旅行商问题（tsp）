@@ -1,0 +1,53 @@
+import java.util.Scanner;
+
+public class Main {
+	public static int[][] city;
+	public static int[] results;
+	public static int result = Integer.MAX_VALUE;
+	public static int count;
+	public static int[] bool;
+	public static int n;
+
+	public static void main(String[] args) {
+		Scanner sr = new Scanner(System.in);
+		n = sr.nextInt();
+		city = new int[n + 1][n + 1];
+		bool = new int[n + 1];
+		results = new int[n + 1];
+		int t = sr.nextInt();
+		while (t-- > 0) {
+			int x = sr.nextInt();
+			int y = sr.nextInt();
+			int l = sr.nextInt();
+			city[x][y] = city[y][x] = l;
+		}
+		sr.close();
+		results[0] = 1;
+		dfs(1, 1);
+		for (int i = 0; i <= n; i++)
+			System.out.print(results[i] + " ");
+		System.out.println("\n" + result);
+
+	}
+
+	private static void dfs(int t, int c) {
+		if (t > n) {
+			if (c == 1 && count < result) {
+				result = count;
+				for (int i = 1; i <= n; i++)
+					results[bool[i]] = i;
+			}
+			return;
+		}
+		for (int i = 1; i <= n; i++) {
+			if (bool[i] == 0 && i != c && city[i][c] != 0) {
+				bool[i] = t;
+				count += city[i][c];
+				dfs(t + 1, i);
+				count -= city[i][c];
+				bool[i] = 0;
+			}
+		}
+	}
+
+}
