@@ -1,0 +1,101 @@
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+/*
+ * 有一位商人，他想要去n个城市，从第一个城市出发，他每个城市去且只去一次，最后又回到第一个城市，求他去的城市的顺序以及最短距离
+输入
+城市数n、边数
+城市与城市之间的距离
+输出
+路线以及最短距离
+例：
+输入
+5 
+9
+1 2 3 
+1 4 8
+1 5 9
+2 3 3 
+2 4 10
+2 5 5 
+3 4 4
+3 5 3
+4 5 20
+输出
+1 2 5 3 4 1
+23
+ * */
+public class Main {
+	//n为顶点数，cls为距离，bestCls为最短距离
+	public static int n,cls,bestCls;
+	//最优解
+	public static int [] bestx;
+	//解，但不是最优解
+	public static int [] xi;
+	//无向权图
+	public static int [][] map;
+	
+	public static void main(String[] args) {
+		Scanner sr = new Scanner(System.in);
+		
+		n = sr.nextInt();
+		int edage = sr.nextInt();
+		
+		bestx = new int[n];
+		xi = new int[n];
+		map = new int[n][n];
+		
+		for(int i = 0; i < n; i++){
+			Arrays.fill(map[i], Integer.MAX_VALUE);
+		}
+		for(int i = 0; i < edage; i++){
+			int x = sr.nextInt() - 1;
+			int y = sr.nextInt() - 1;
+			int temp = sr.nextInt();
+			//取输入的最短值
+			if(map[x][y] > temp)
+				map[x][y] = map[y][x] = temp;
+		}
+		for(int i = 0; i < n; i++){
+			xi[i] = i;
+		}
+		Arrays.fill(bestx, 0);
+		cls = 0;
+		bestCls = Integer.MAX_VALUE;
+		
+		fun(1);
+		
+		for(int i = 0; i < bestx.length; i++)
+			System.out.print(bestx[i] + 1 + " ");
+		System.out.println("1\n" + bestCls);
+		sr.close();
+	}
+	public static void fun(int t){
+		if(t >= n){
+			if(map[xi[n - 1]][0] != Integer.MAX_VALUE && (cls + map[xi[n - 1]][0] < bestCls)){	
+				for(int j = 0; j < n; j++)
+					bestx[j] = xi[j];
+				bestCls = cls + map[xi[n - 1]][0];
+			}
+		}else{
+			for(int i = t; i < n; i++){
+				if(map[xi[t - 1]][xi[i]] != Integer.MAX_VALUE && (cls + map[xi[t - 1]][xi[i]] < bestCls) ){
+					swap(t,i);
+					cls += map[xi[t - 1]][xi[t]];
+					
+					fun(t + 1);
+					
+					cls -= map[xi[t - 1]][xi[t]];
+					swap(t,i);
+				}
+			}
+		}
+	}
+	
+	public static void swap(int t,int i){
+		int temp = xi[i];
+		xi[i] = xi[t];
+		xi[t] = temp;
+	}
+}
