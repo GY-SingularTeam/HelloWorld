@@ -1,0 +1,52 @@
+import java.util.Scanner;
+
+public class Main {
+	public static int n, b, a[][];
+	public static int c[];
+	public static int d[];
+	public static int count = 0, result = Integer.MAX_VALUE;
+
+	public static void main(String[] args) {
+		Scanner lnt = new Scanner(System.in);
+		n = lnt.nextInt();
+		a = new int[n + 1][n + 1];
+		b = lnt.nextInt();
+		c = new int[n + 1];
+		d=new int[n+1];
+		d[0]=1;
+		for (int i = 0; i < b; i++) {
+			int x, y;
+			x = lnt.nextInt();
+			y = lnt.nextInt();
+			a[x][y] = lnt.nextInt();
+			a[y][x] = a[x][y];
+		}
+		zd(1,1);
+		for(int i=0;i<n;i++) {
+			System.out.print(d[i]+" ");
+		}
+		System.out.println();
+		System.out.println(result);
+	}
+
+	public static void zd(int x, int y) { // x:经过的第几个城市，y:当前是第几号城市
+		if (x > n) {
+			if (y == 1 && count < result) {
+				result = count;
+				for(int i=1;i<=n;i++) {
+					d[c[i]]=i;
+				}
+			}
+			return;
+		}
+	for(int i=1;i<=n;i++) {
+		  if(c[i]==0&&a[y][i]!=0&&i!=y) {
+			  c[i]=x;
+			  count+=a[y][i];
+			  zd(x+1,i);
+			  c[i]=0;
+			  count-=a[y][i];
+		  }
+	  }
+	}
+}

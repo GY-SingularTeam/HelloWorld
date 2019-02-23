@@ -1,0 +1,55 @@
+import java.util.Scanner;
+
+public class Main {
+	public static int n, waits = Integer.MAX_VALUE, wait = 0;
+	public static int[] time1, time2;
+	public static int a[];
+	public static int b[];
+	public static void main(String[] args) {
+		Scanner lnt = new Scanner(System.in);
+		n = lnt.nextInt();
+		time1 = new int[n + 1];
+		time2 = new int[n + 1];
+		a = new int[n + 1];
+		b = new int[n + 1];
+		for (int i = 1; i <= n; i++) {
+			time1[i] = lnt.nextInt();
+			time2[i] = lnt.nextInt();
+		}
+		jg(1, 0);
+		int sum=0;
+		for(int i=1;i<=n;i++) {
+			sum+=time2[i];
+		}
+		System.out.println(sum+waits);
+		for(int i=1;i<=n;i++) {
+			System.out.print(b[i]+" ");
+		}
+	}
+
+	public static void jg(int t, int dy) {
+		if (t > n) {
+			if (wait < waits) {
+				waits = wait;
+				for(int i=1;i<=n;i++) {
+					b[a[i]]=i;
+				}
+			}
+			return;
+		}
+		for (int i = 1; i <= n; i++) {
+			if (a[i]==0) {
+				a[i] = t;
+				if (dy >time1[i]) {
+					jg(t + 1, dy - time1[i] + time2[i]);
+				} else {
+					wait += time1[i] - dy;
+					jg(t + 1, time2[i]);
+					wait -= time1[i] - dy;
+				}
+				a[i] = 0;
+			}
+		}
+	}
+
+}
